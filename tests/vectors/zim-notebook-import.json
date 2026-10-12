@@ -34,6 +34,35 @@
    }
   },
   {
+   "name": "zim 0.6 header written by current Zim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.6\nCreation-Date: 2020-05-02T12:30:00+00:00\n\n====== Title ======"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "# Title",
+      "properties": {
+       "zim_source": "Source/Page.txt",
+       "zim_created": "2020-05-02T12:30:00+00:00"
+      }
+     }
+    ],
+    "issues": [],
+    "conflicts": []
+   }
+  },
+  {
    "name": "five equals becomes second heading",
    "args": [
     [

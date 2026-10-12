@@ -18,7 +18,7 @@ The destination must be new and separate from the source. A case-insensitive out
 
 ### Convert basic page text
 
-The converter removes recognized Zim 0.4 format headers from the body. Other header fields stay as text and go in the report. Headings with two through six equals signs become Markdown headings. Bold text keeps its markers; supported italic text becomes Markdown emphasis. Basic numbered and bullet lists retain their line order and indentation. Triple-quoted code blocks become fenced Markdown code. Code text is kept inside the fence, including strings that look like links.
+The converter removes recognized Zim headers of wiki format 0.4, 0.5 and 0.6 from the body. Current Zim releases write format 0.6. A page with a different format number keeps its full text, and the report lists it. Other header fields stay as text and go in the report. Headings with two through six equals signs become Markdown headings. Bold text keeps its markers; supported italic text becomes Markdown emphasis. Basic numbered and bullet lists retain their line order and indentation. Triple-quoted code blocks become fenced Markdown code. Code text is kept inside the fence, including strings that look like links.
 
 Zim checkbox lines become Markdown tasks with the same tab depth: `[ ]` becomes `- [ ]` and `[*]` becomes `- [x]`. A Zim `[x]` marks a dismissed item, so it becomes `- [c]` and not a finished task. `[>]` and `[<]` keep their symbols. Obsidian draws `- [c]` as a checked box without a strike through the text. A theme or plugin can style the `c`, `>` and `<` statuses. A checkbox that Zim does not read as a list item stays as source text. This includes a checkbox in the middle of a line, a checkbox with no space or tab after it and a checkbox indented with spaces. A checkbox followed by a space but no text becomes an empty task. A checkbox line with other unsupported syntax stays as source text too. Both cases go in the report.
 
@@ -58,7 +58,7 @@ To convert again, review a new plan and use a new destination. The preview does 
 
 ## Install
 
-This version is prepared for release. Until it is listed, install the release files by hand. Copy `main.js`, `manifest.json` and `styles.css` into `<vault>/.obsidian/plugins/zim-notebook-import/`. Open Community plugins and enable Zim Notebook Import. It requires Obsidian 1.13.4 or later.
+Open Settings, then Community plugins, then Browse, and search for "Zim Notebook Import". Select Install, then Enable. It requires Obsidian 1.13.4 or later. To install by hand, copy `main.js`, `manifest.json` and `styles.css` from a GitHub release into `<vault>/.obsidian/plugins/zim-notebook-import/`.
 
 ## Usage
 

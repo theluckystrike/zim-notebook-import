@@ -127,3 +127,22 @@ describe('Zim checkboxes that are not list items', () => {
 		expect(plan('[ ] \n[*]\t').notes[0]!.body).toBe('- [ ]\n- [x]');
 	});
 });
+
+describe('audit a30 regression cases', () => {
+	it.each(['zim 0.5', 'zim 0.6'])('converts a page with the header that Zim writes, %s', (version) => {
+		const result = plan(`Content-Type: text/x-zim-wiki\nWiki-Format: ${version}\nCreation-Date: 2021-01-02T03:04:05+01:00\n\n====== Title ======\nSome //italic// text`);
+		expect(result.notes[0]!.body).toBe('# Title\nSome *italic* text');
+		expect(result.notes[0]!.properties.zim_created).toBe('2021-01-02T03:04:05+01:00');
+		expect(result.issues).toEqual([]);
+	});
+	it('plans a large notebook in a large vault without a quadratic slowdown', () => {
+		const n = 2000;
+		const sources = Array.from({ length: n }, (_, i) => ({ path: `Source/NS${i % 20}/Page_${i}.txt`, text: Array.from({ length: 10 }, (_, k) => `[[:NS${(i + k) % 20}:Page_${(i + k) % n}]] [[Page_${i}]]`).join('\n') }));
+		const existing = Array.from({ length: 20000 }, (_, i) => `Other/Note ${i}.md`);
+		const started = Date.now();
+		const result = planZimImport(sources, 'Source', 'Output', existing);
+		expect(Date.now() - started).toBeLessThan(5000);
+		expect(result.conflicts).toEqual([]);
+		expect(result.notes.find((note) => note.source === 'Source/NS1/Page_1.txt')!.body.split('\n')[0]).toBe('[[Output/NS1/Page 1]] [[Output/NS1/Page 1]]');
+	}, 60000);
+});

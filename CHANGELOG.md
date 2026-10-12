@@ -1,5 +1,11 @@
 # zim-notebook-import
 
+## 1.1.1
+
+### Patch Changes
+
+- 96ec4f7: Convert pages with the Zim 0.5 and 0.6 headers that current Zim writes, and plan large notebooks in large vaults without a long freeze.
+
 ## 1.1.0
 
 ### Minor Changes
