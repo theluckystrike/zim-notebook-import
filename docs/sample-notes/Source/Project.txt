@@ -1,0 +1,25 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-05-02T12:30:00+00:00
+
+====== Garden project ======
+
+**Goal:** Plant a small herb garden.
+
+//Use the sunny corner next to the kitchen.//
+
+===== Next steps =====
+
+1. Choose the herbs.
+2. Prepare the soil.
+* Basil
+	* Sweet basil
+* Rosemary
+
+Read [[+Checklist|the planting checklist]] and [[:Reference:Soil|the soil notes]].
+
+===== Command note =====
+
+'''
+water --bed herbs
+'''
