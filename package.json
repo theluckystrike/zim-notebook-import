@@ -1,6 +1,6 @@
 {
 	"name": "zim-notebook-import",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"private": true,
 	"description": "Convert basic Zim pages into linked Markdown notes.",
 	"main": "main.js",

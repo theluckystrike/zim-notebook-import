@@ -787,12 +787,12 @@
    }
   },
   {
-   "name": "checkbox stays verbatim",
+   "name": "checkbox states become tasks",
    "args": [
     [
      {
       "path": "Source/Page.txt",
-      "text": "[ ] Task"
+      "text": "[ ] Open\n[*] Done\n[x] Dismissed\n[>] Moved\n[<] Returned"
      }
     ],
     "Source",
@@ -804,7 +804,103 @@
      {
       "source": "Source/Page.txt",
       "path": "Output/Page.md",
-      "body": "[ ] Task",
+      "body": "- [ ] Open\n- [x] Done\n- [c] Dismissed\n- [>] Moved\n- [<] Returned",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "nested checkboxes keep tab depth",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "[ ] Parent\n\t[*] Child\n\t\t[ ] Grandchild"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "- [ ] Parent\n\t- [x] Child\n\t\t- [ ] Grandchild",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "checkbox text keeps links and emphasis",
+   "args": [
+    [
+     {
+      "path": "Source/Topic.txt",
+      "text": "[ ] See [[+Child|the child]] and //soft// ''code''"
+     },
+     {
+      "path": "Source/Topic/Child.txt",
+      "text": "child"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Topic.txt",
+      "path": "Output/Topic.md",
+      "body": "- [ ] See [[Output/Topic/Child|the child]] and *soft* ` code `",
+      "properties": {
+       "zim_source": "Source/Topic.txt"
+      }
+     },
+     {
+      "source": "Source/Topic/Child.txt",
+      "path": "Output/Topic/Child.md",
+      "body": "child",
+      "properties": {
+       "zim_source": "Source/Topic/Child.txt"
+      }
+     }
+    ],
+    "issues": [],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "checkbox with unsupported content stays verbatim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "[ ] Water __now__"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "[ ] Water __now__",
       "properties": {
        "zim_source": "Source/Page.txt"
       }
@@ -815,9 +911,177 @@
       "source": "Source/Page.txt",
       "line": 1,
       "kind": "syntax",
-      "detail": "[ ] Task"
+      "detail": "[ ] Water __now__"
      }
     ],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "checkbox without text stays verbatim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "[ ]"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "[ ]",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [
+     {
+      "source": "Source/Page.txt",
+      "line": 1,
+      "kind": "syntax",
+      "detail": "[ ]"
+     }
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "checkbox in a line stays verbatim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "Task [ ] inline"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "Task [ ] inline",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [
+     {
+      "source": "Source/Page.txt",
+      "line": 1,
+      "kind": "syntax",
+      "detail": "Task [ ] inline"
+     }
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "left arrow checkbox in a line stays verbatim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "Task [<] inline"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "Task [<] inline",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [
+     {
+      "source": "Source/Page.txt",
+      "line": 1,
+      "kind": "syntax",
+      "detail": "Task [<] inline"
+     }
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "space indented checkbox stays verbatim",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "  [ ] Task"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "  [ ] Task",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [
+     {
+      "source": "Source/Page.txt",
+      "line": 1,
+      "kind": "syntax",
+      "detail": "  [ ] Task"
+     }
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "name": "checkbox inside code block stays code",
+   "args": [
+    [
+     {
+      "path": "Source/Page.txt",
+      "text": "'''\n[ ] Task\n'''"
+     }
+    ],
+    "Source",
+    "Output",
+    []
+   ],
+   "expected": {
+    "notes": [
+     {
+      "source": "Source/Page.txt",
+      "path": "Output/Page.md",
+      "body": "```\n[ ] Task\n```",
+      "properties": {
+       "zim_source": "Source/Page.txt"
+      }
+     }
+    ],
+    "issues": [],
     "conflicts": []
    }
   },

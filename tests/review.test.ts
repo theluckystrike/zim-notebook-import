@@ -116,3 +116,14 @@ describe('Zim page-name spelling in links', () => {
 		expect(result.issues).toEqual([]);
 	});
 });
+
+describe('Zim checkboxes that are not list items', () => {
+	it.each(['Task [<] inline', '  [<] Task', '[<]'])('reports the left arrow checkbox in %j', (text) => {
+		const result = plan(text);
+		expect(result.notes[0]!.body).toBe(text);
+		expect(result.issues.map((i) => i.detail)).toEqual([text]);
+	});
+	it('keeps an empty checkbox item as an empty task', () => {
+		expect(plan('[ ] \n[*]\t').notes[0]!.body).toBe('- [ ]\n- [x]');
+	});
+});

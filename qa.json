@@ -9,10 +9,10 @@
 	},
 	{
 		"feature": "conversion",
-		"caption": "Headings, lists, emphasis, code and mapped page links in the imported garden note.",
+		"caption": "Headings, lists, tasks, emphasis, code and mapped page links in the imported garden note.",
 		"eval": "(async()=>{const p = app.plugins.plugins['zim-notebook-import']; window.__zimModal?.close(); app.setting.close();if(!app.vault.getAbstractFileByPath('Demo import')) await p.writeImport(await p.prepare('Zim Notebook Import/Source','Demo import')); await app.workspace.getLeaf().openFile(app.vault.getFileByPath('Demo import/Project.md')); return 'ok';})()",
 		"wait": 700,
-		"zoom": 0.8
+		"zoom": 0.6
 	},
 	{
 		"feature": "properties",
@@ -22,7 +22,7 @@
 	},
 	{
 		"feature": "report",
-		"caption": "The report lists the unresolved link, source image, checkbox and table sections.",
+		"caption": "The report lists the unresolved link, source image and table sections.",
 		"eval": "(async()=>{const p = app.plugins.plugins['zim-notebook-import']; window.__zimModal?.close(); app.setting.close();await app.workspace.getLeaf().openFile(app.vault.getFileByPath('Demo import/Zim import report.md')); return 'ok';})()",
 		"wait": 700
 	},

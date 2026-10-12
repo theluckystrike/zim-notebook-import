@@ -20,6 +20,8 @@ The destination must be new and separate from the source. A case-insensitive out
 
 The converter removes recognized Zim 0.4 format headers from the body. Other header fields stay as text and go in the report. Headings with two through six equals signs become Markdown headings. Bold text keeps its markers; supported italic text becomes Markdown emphasis. Basic numbered and bullet lists retain their line order and indentation. Triple-quoted code blocks become fenced Markdown code. Code text is kept inside the fence, including strings that look like links.
 
+Zim checkbox lines become Markdown tasks with the same tab depth: `[ ]` becomes `- [ ]` and `[*]` becomes `- [x]`. A Zim `[x]` marks a dismissed item, so it becomes `- [c]` and not a finished task. `[>]` and `[<]` keep their symbols. Obsidian draws `- [c]` as a checked box without a strike through the text. A theme or plugin can style the `c`, `>` and `<` statuses. A checkbox that Zim does not read as a list item stays as source text. This includes a checkbox in the middle of a line, a checkbox with no space or tab after it and a checkbox indented with spaces. A checkbox followed by a space but no text becomes an empty task. A checkbox line with other unsupported syntax stays as source text too. Both cases go in the report.
+
 Supported page links use mapped output paths. A leading plus selects a child page, while a leading colon selects a page from the notebook root. Bare links search the current section, then its parents. Lookup resolves the first component before the remaining children. A closer namespace with a missing child does not redirect to a distant page. Labels remain on resolved links. Missing targets and ambiguous matches remain as source links and appear in the report.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/zim-notebook-import/HEAD/docs/conversion.png" alt="A garden note with converted headings, text, lists, code and links" width="720">
@@ -34,7 +36,7 @@ Zim file names encode spaces with `_`; those characters become spaces in page na
 
 ### Read the import report
 
-The destination receives `Zim import report.md`. It lists created-note counts and the source path, line and reason for detected issues. Images, table lines, checkboxes, underline and recognized object blocks stay as source text. They are not converted into assets or interactive controls. Files with other extensions remain in the source folder and their paths appear in the report.
+The destination receives `Zim import report.md`. It lists created-note counts and the source path, line and reason for detected issues. Images, table lines, underline and recognized object blocks stay as source text. They are not converted into assets or interactive controls. Files with other extensions remain in the source folder and their paths appear in the report.
 
 Review these entries against the originals. A successful basic conversion does not mean that the complete Zim format was supported. An unclosed triple-quoted block remains text and is reported. An unsupported or incomplete Zim header keeps the page text without basic conversion.
 

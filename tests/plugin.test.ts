@@ -22,6 +22,12 @@ describe('vault writes', () => {
 		expect(await app.vault.read(app.vault.getAbstractFileByPath('Source/Page.txt') as never)).toContain('====== Title ======');
 		expect(app.vault.getAbstractFileByPath(result.report)).toBeTruthy();
 	});
+	it('writes checkbox lines as tasks without a report entry', async () => {
+		const { app, plugin } = fixture(); await app.vault.create('Source/Tasks.txt', '[ ] Open\n\t[*] Done\n[x] Dismissed');
+		const result = await plugin.writeImport(await plugin.prepare('Source', 'Output'));
+		expect(await app.vault.read(app.vault.getAbstractFileByPath('Output/Tasks.md') as never)).toContain('- [ ] Open\n\t- [x] Done\n- [c] Dismissed');
+		expect(await app.vault.read(app.vault.getAbstractFileByPath(result.report) as never)).not.toContain('Tasks.txt');
+	});
 	it('blocks existing output before the first write', async () => {
 		const { app, plugin } = fixture();
 		await app.vault.createFolder('Output');
