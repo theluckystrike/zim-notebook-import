@@ -16,7 +16,7 @@ export default class ZimNotebookImportPlugin extends Plugin {
 		this.stopped = false;
 		await this.loadSettings();
 		if (this.stopped) return;
-		const pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS);
+		const pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS, this);
 		pro.init(); this.pro = pro; bindPro(pro);
 		const tab = new ZimNotebookImportSettingTab(this.app, this);
 		this.addSettingTab(tab); this.register(pro.onChange(() => tab.update()));
