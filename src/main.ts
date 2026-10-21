@@ -5,6 +5,8 @@ import type { SponsorsManager } from './license/index';
 import { SPONSORS, bindPro, isPro, resetPro } from './pro';
 import { DEFAULT_SETTINGS, normalizeSettings, ZimNotebookImportSettingTab, type ZimNotebookImportSettings } from './settings';
 import { ImportModal } from './ui';
+import { setupHello } from './hello/index';
+import WHATS_NEW from './whats-new.json';
 export interface PreparedImport { source: string; destination: string; rules: ZimRules; sources: ZimSource[]; plan: ZimPlan }
 export default class ZimNotebookImportPlugin extends Plugin {
 	settings: ZimNotebookImportSettings = { ...DEFAULT_SETTINGS };
@@ -13,6 +15,8 @@ export default class ZimNotebookImportPlugin extends Plugin {
 	private stopped = false;
 	private modals = new Set<ImportModal>();
 	async onload(): Promise<void> {
+		// First: "What's new" reads its state before the settings load (packages/hello). It does not wait.
+		setupHello(this, WHATS_NEW);
 		this.stopped = false;
 		await this.loadSettings();
 		if (this.stopped) return;

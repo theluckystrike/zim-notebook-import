@@ -79,7 +79,8 @@ describe('review regression cases', () => {
 		vi.spyOn(plugin, 'loadSettings').mockImplementation(() => new Promise((resolve) => { finish = resolve; }));
 		const add = vi.spyOn(plugin, 'addCommand');
 		const pending = plugin.onload(); plugin.onunload(); finish(); await pending;
-		expect(add).not.toHaveBeenCalled();
+		// Only the What's new and Send feedback commands of packages/hello, which register before the settings load.
+		expect(add.mock.calls.map(([command]) => command.id)).toEqual(['show-whats-new', 'send-feedback']);
 	});
 	it('closes an open import modal on unload', () => {
 		const { plugin } = fixture(); const modal = plugin.openImport();

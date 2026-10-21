@@ -72,6 +72,8 @@ The plugin rereads the source and repeats conflict checks before writing. If the
 
 ## Settings
 
+After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
+
 The import screen holds folder and page-name choices. The plugin settings tab holds GitHub Sponsors controls. Free conversion needs no account. Source and destination paths cannot contain parent path segments. The reserved report name cannot also be a converted page name.
 
 ## FAQ
