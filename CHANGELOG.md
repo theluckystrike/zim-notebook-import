@@ -1,5 +1,11 @@
 # zim-notebook-import
 
+## 1.2.1
+
+### Patch Changes
+
+- The Pro notice for saved rules and the later import preview now has a Sponsor on GitHub button.
+
 ## 1.2.0
 
 ### Minor Changes

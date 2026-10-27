@@ -2,7 +2,7 @@ import { Notice, Plugin, TFolder, normalizePath, stringifyYaml } from 'obsidian'
 import { compareZimSources, planZimImport, validZimPath, ZIM_RULES, type ZimPlan, type ZimRules, type ZimSource } from './core/index';
 import { createGitHubSponsors } from './license/github-obsidian';
 import type { SponsorsManager } from './license/index';
-import { SPONSORS, bindPro, isPro, resetPro } from './pro';
+import { SPONSORS, bindPro, isPro, resetPro, proNotice } from './pro';
 import { DEFAULT_SETTINGS, normalizeSettings, ZimNotebookImportSettingTab, type ZimNotebookImportSettings } from './settings';
 import { ImportModal } from './ui';
 import { setupHello } from './hello/index';
@@ -72,13 +72,13 @@ export default class ZimNotebookImportPlugin extends Plugin {
 		return { source, destination, rules: { ...rules }, sources, plan };
 	}
 	async saveRules(source: string, destination: string, rules: ZimRules): Promise<boolean> {
-		if (!isPro()) { new Notice('Saved import rules need pro. Sign in with GitHub in the plugin settings.'); return false; }
+		if (!isPro()) { proNotice('Saved import rules need pro.'); return false; }
 		if (!validZimPath(source) || !validZimPath(destination)) throw new Error('Use valid vault folder paths.');
 		this.settings.saved = { source: normalizePath(source), destination: normalizePath(destination), rules: { ...rules } };
 		await this.saveSettings(); return true;
 	}
 	async laterPreview(): Promise<ReturnType<typeof compareZimSources> | null> {
-		if (!isPro()) { new Notice('The later import preview needs pro.'); return null; }
+		if (!isPro()) { proNotice('The later import preview needs pro.'); return null; }
 		const snapshot = this.settings.snapshot;
 		if (!snapshot) throw new Error('Import a source folder first to store a comparison.');
 		return compareZimSources(snapshot.pages, await this.readSource(snapshot.source));
