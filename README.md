@@ -94,6 +94,8 @@ The output is Markdown with YAML properties and vault links. You can read and ed
 
 The core features are free. Pro features need a GitHub Sponsors sponsorship of theluckystrike: $5 a month or more, or $15 once. A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply. Your notes stay readable and editable with or without Pro.
 
+[One payment turns on Pro in every NoteMods plugin](https://notemods.com/pro/).
+
 GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=zim-notebook-import. You need no account for the free features. Pro needs the GitHub account that sponsors.
 
 Imported text can contain HTML or remote image links. If you open that text or the report in a rendered view, Obsidian can request those remote resources. Review untrusted source text before you open the result.
