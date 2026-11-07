@@ -1,9 +1,9 @@
 {
 	"id": "zim-notebook-import",
 	"name": "Zim Notebook Import",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"minAppVersion": "1.13.4",
-	"description": "Convert basic Zim pages into linked Markdown notes.",
+	"description": "Convert Zim Desktop Wiki pages into linked Markdown notes. Migrate a Zim notebook folder with a preview, and write the Markdown pages to a new folder.",
 	"author": "Michael Lip",
 	"authorUrl": "https://github.com/theluckystrike",
 	"fundingUrl": "https://github.com/sponsors/theluckystrike",

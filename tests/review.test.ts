@@ -4,6 +4,7 @@ import { planZimImport } from '../src/core/index';
 import ZimNotebookImportPlugin from '../src/main';
 import { resetPro } from '../src/pro';
 import manifest from '../manifest.json';
+import { GROWTH_LIMIT, growth } from './growth';
 
 afterEach(() => { resetPro(); vi.restoreAllMocks(); });
 const plan = (text: string) => planZimImport([{ path: 'Source/Page.txt', text }], 'Source', 'Output');
@@ -137,12 +138,18 @@ describe('audit a30 regression cases', () => {
 		expect(result.issues).toEqual([]);
 	});
 	it('plans a large notebook in a large vault without a quadratic slowdown', () => {
-		const n = 2000;
-		const sources = Array.from({ length: n }, (_, i) => ({ path: `Source/NS${i % 20}/Page_${i}.txt`, text: Array.from({ length: 10 }, (_, k) => `[[:NS${(i + k) % 20}:Page_${(i + k) % n}]] [[Page_${i}]]`).join('\n') }));
-		const existing = Array.from({ length: 20000 }, (_, i) => `Other/Note ${i}.md`);
-		const started = Date.now();
+		const inputOf = (n: number) => ({
+			sources: Array.from({ length: n }, (_, i) => ({ path: `Source/NS${i % 20}/Page_${i}.txt`, text: Array.from({ length: 10 }, (_, k) => `[[:NS${(i + k) % 20}:Page_${(i + k) % n}]] [[Page_${i}]]`).join('\n') })),
+			existing: Array.from({ length: 10 * n }, (_, i) => `Other/Note ${i}.md`),
+		});
+		const { sources, existing } = inputOf(2000);
 		const result = planZimImport(sources, 'Source', 'Output', existing);
-		expect(Date.now() - started).toBeLessThan(20000);
+		// Growth guard: 2,000 pages and 20,000 vault notes against 200 and 2,000, both timed in this test (tests/growth.ts).
+		const g = growth((n) => {
+			const input = inputOf(n);
+			return () => planZimImport(input.sources, 'Source', 'Output', input.existing);
+		}, 2000);
+		expect(g.ratio, g.text).toBeLessThan(GROWTH_LIMIT);
 		expect(result.conflicts).toEqual([]);
 		expect(result.notes.find((note) => note.source === 'Source/NS1/Page_1.txt')!.body.split('\n')[0]).toBe('[[Output/NS1/Page 1]] [[Output/NS1/Page 1]]');
 	}, 60000);

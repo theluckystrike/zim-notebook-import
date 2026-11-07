@@ -1,8 +1,9 @@
 {
 	"id": "zim-notebook-import",
 	"name": "Zim Notebook Import",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"changes": [
+		"The Pro notice of Zim Notebook Import now says that one payment turns on Pro in every NoteMods plugin.",
 		"The Pro notice for saved rules and the later import preview now has a Sponsor on GitHub button."
 	],
 	"tip": "A Zim [x] checkbox marks a dismissed item, so it becomes a - [c] task, not a finished one.",
