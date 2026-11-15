@@ -5,6 +5,7 @@ import ZimNotebookImportPlugin from '../src/main';
 import { resetPro } from '../src/pro';
 import manifest from '../manifest.json';
 import { GROWTH_LIMIT, growth } from './growth';
+import { budget } from './time-scale';
 
 afterEach(() => { resetPro(); vi.restoreAllMocks(); });
 const plan = (text: string) => planZimImport([{ path: 'Source/Page.txt', text }], 'Source', 'Output');
@@ -152,5 +153,5 @@ describe('audit a30 regression cases', () => {
 		expect(g.ratio, g.text).toBeLessThan(GROWTH_LIMIT);
 		expect(result.conflicts).toEqual([]);
 		expect(result.notes.find((note) => note.source === 'Source/NS1/Page_1.txt')!.body.split('\n')[0]).toBe('[[Output/NS1/Page 1]] [[Output/NS1/Page 1]]');
-	}, 60000);
+	}, budget(60000));
 });
